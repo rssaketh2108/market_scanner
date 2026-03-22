@@ -13,6 +13,7 @@ export default function App() {
   const [stocksLoading, setStocksLoading] = useState(false);
   const [sortBy, setSortBy] = useState("composite_score");
   const [ascending, setAscending] = useState(false);
+  const [filters, setFilters] = useState({});
 
   // Poll backend status until ready
   useEffect(() => {
@@ -48,6 +49,16 @@ export default function App() {
   }, [selectedIndustry, sortBy, ascending]);
 
   useEffect(() => { fetchStocks(); }, [fetchStocks]);
+
+  const displayedStocks = stocks.filter((s) => {
+    if (filters.pe_ratio_max !== "" && filters.pe_ratio_max != null && s.pe_ratio != null && s.pe_ratio > +filters.pe_ratio_max) return false;
+    if (filters.pb_ratio_max !== "" && filters.pb_ratio_max != null && s.pb_ratio != null && s.pb_ratio > +filters.pb_ratio_max) return false;
+    if (filters.roe_min !== "" && filters.roe_min != null && s.roe != null && s.roe < +filters.roe_min / 100) return false;
+    if (filters.de_max !== "" && filters.de_max != null && s.debt_to_equity != null && s.debt_to_equity > +filters.de_max) return false;
+    if (filters.score_min !== "" && filters.score_min != null && s.composite_score != null && s.composite_score < +filters.score_min) return false;
+    return true;
+  });
+  const hasFilters = Object.values(filters).some((v) => v !== "");
 
   const handleSort = (col) => {
     if (col === sortBy) setAscending((a) => !a);
@@ -101,15 +112,21 @@ export default function App() {
           {selectedIndustry && (
             <div className="industry-header">
               <h2>{selectedIndustry}</h2>
-              <span className="muted">{stocks.length} companies</span>
+              <span className="muted">
+                {hasFilters
+                  ? `${displayedStocks.length} of ${stocks.length} companies`
+                  : `${stocks.length} companies`}
+              </span>
             </div>
           )}
+
+          <FilterBar filters={filters} onChange={setFilters} />
 
           {stocksLoading && <div className="loading-msg">Loading stocks…</div>}
 
           {!stocksLoading && stocks.length > 0 && (
             <StockTable
-              stocks={stocks}
+              stocks={displayedStocks}
               sortBy={sortBy}
               ascending={ascending}
               onSort={handleSort}

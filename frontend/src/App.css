@@ -59,3 +59,4 @@
 .muted { color: var(--muted); font-size: 0.85rem; }
 .center { text-align: center; margin-top: 60px; }
 .loading-msg { color: var(--muted); padding: 40px 0; text-align: center; }
+.freshness-label { font-size: 0.75rem; color: var(--muted); }

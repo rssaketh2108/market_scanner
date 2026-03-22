@@ -1,4 +1,5 @@
 import threading
+from datetime import datetime
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -22,6 +23,7 @@ _state: dict = {
     "rankings": None,   # dict[industry -> list[stock]]
     "loading": False,
     "error": None,
+    "last_updated": None,
 }
 
 
@@ -32,6 +34,7 @@ def _load():
         raw = get_cached_or_fetch()
         df = compute_metrics(raw)
         _state["rankings"] = get_industry_rankings(df)
+        _state["last_updated"] = datetime.now().isoformat()
     except Exception as e:
         _state["error"] = str(e)
     finally:
@@ -53,6 +56,7 @@ def status():
         "ready": _state["rankings"] is not None,
         "error": _state["error"],
         "industry_count": len(_state["rankings"]) if _state["rankings"] else 0,
+        "last_updated": _state["last_updated"],
     }
 
 

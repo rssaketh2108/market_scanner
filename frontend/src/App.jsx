@@ -15,6 +15,7 @@ export default function App() {
   const [sortBy, setSortBy] = useState("composite_score");
   const [ascending, setAscending] = useState(false);
   const [filters, setFilters] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Poll backend status until ready
   useEffect(() => {
@@ -57,9 +58,13 @@ export default function App() {
     if (filters.roe_min !== "" && filters.roe_min != null && s.roe != null && s.roe < +filters.roe_min / 100) return false;
     if (filters.de_max !== "" && filters.de_max != null && s.debt_to_equity != null && s.debt_to_equity > +filters.de_max) return false;
     if (filters.score_min !== "" && filters.score_min != null && s.composite_score != null && s.composite_score < +filters.score_min) return false;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      if (!s.ticker.toLowerCase().includes(q) && !(s.name || "").toLowerCase().includes(q)) return false;
+    }
     return true;
   });
-  const hasFilters = Object.values(filters).some((v) => v !== "");
+  const hasFilters = Object.values(filters).some((v) => v !== "") || !!searchQuery;
 
   const handleSort = (col) => {
     if (col === sortBy) setAscending((a) => !a);
@@ -125,6 +130,14 @@ export default function App() {
               </span>
             </div>
           )}
+
+          <input
+            className="search-input"
+            type="text"
+            placeholder="Search by ticker or company name…"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
 
           <FilterBar filters={filters} onChange={setFilters} />
 

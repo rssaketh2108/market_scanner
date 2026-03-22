@@ -125,6 +125,11 @@ def compute_metrics(stocks_data: list[dict]) -> pd.DataFrame:
 
     df["composite_score"] = df[norm_cols].mean(axis=1) * 100
 
+    # Drop stocks with insufficient data (fewer than 5 of 17 scored metrics available)
+    available_metrics = [m for m in SCORE_METRICS if m in df.columns]
+    df["_metric_count"] = df[available_metrics].notna().sum(axis=1)
+    df = df[df["_metric_count"] >= 5].drop(columns=["_metric_count"])
+
     # Drop internal norm columns
     df.drop(columns=norm_cols, inplace=True)
 

@@ -1,0 +1,61 @@
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.stock-table thead th {
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: right;
+  position: sticky; top: 0; z-index: 1;
+}
+
+.stock-table thead th:first-child,
+.stock-table thead th:nth-child(2),
+.stock-table thead th:nth-child(3) {
+  text-align: left;
+}
+
+.stock-table thead th.sortable {
+  cursor: pointer; user-select: none;
+}
+.stock-table thead th.sortable:hover { color: var(--text); }
+.stock-table thead th.sorted { color: var(--accent); }
+
+.sort-arrow { font-size: 0.65rem; }
+
+.stock-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+}
+.stock-table tbody tr:hover { background: var(--surface2); }
+
+.stock-table td {
+  padding: 9px 12px;
+  text-align: right;
+}
+.stock-table td:first-child { text-align: center; }
+
+.cell { color: var(--text); }
+.ticker-cell { font-weight: 600; font-family: monospace; text-align: left !important; }
+
+/* Metric coloring */
+.cell.green { color: var(--green); }
+.cell.yellow { color: var(--yellow); }
+.cell.red { color: var(--red); }
+
+.rank-col { width: 40px; text-align: center !important; color: var(--muted); }

@@ -1,0 +1,61 @@
+.app { display: flex; flex-direction: column; min-height: 100vh; }
+
+/* Header */
+.header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 10;
+}
+.header-left { display: flex; align-items: baseline; gap: 16px; }
+.logo { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.5px; }
+.subtitle { font-size: 0.8rem; color: var(--muted); }
+.header-right { display: flex; align-items: center; gap: 12px; }
+
+.badge {
+  font-size: 0.75rem; padding: 3px 10px; border-radius: 12px;
+}
+.badge.loading { background: #78350f33; color: var(--yellow); }
+.badge.ready { background: #14532d33; color: var(--green); }
+
+.btn-refresh {
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text); padding: 5px 14px; border-radius: 6px; font-size: 0.82rem;
+}
+.btn-refresh:hover { background: var(--border); }
+
+/* Layout */
+.layout { display: flex; flex: 1; overflow: hidden; }
+
+/* Sidebar */
+.sidebar {
+  width: 220px; min-width: 180px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 16px 8px;
+  overflow-y: auto;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.sidebar-title {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
+  color: var(--muted); text-transform: uppercase;
+  padding: 4px 8px 10px;
+}
+.industry-btn {
+  background: none; border: none; color: var(--text);
+  text-align: left; padding: 7px 10px; border-radius: 6px;
+  font-size: 0.83rem; width: 100%;
+}
+.industry-btn:hover { background: var(--surface2); }
+.industry-btn.active { background: var(--surface2); color: var(--accent); font-weight: 600; }
+
+/* Main */
+.main { flex: 1; overflow: auto; padding: 20px 24px; }
+.industry-header {
+  display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px;
+}
+.industry-header h2 { font-size: 1.2rem; font-weight: 700; }
+.muted { color: var(--muted); font-size: 0.85rem; }
+.center { text-align: center; margin-top: 60px; }
+.loading-msg { color: var(--muted); padding: 40px 0; text-align: center; }

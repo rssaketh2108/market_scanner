@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import StockTable from "./components/StockTable";
+import FilterBar from "./components/FilterBar";
 import "./App.css";
 
 const API = "/api";

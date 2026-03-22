@@ -60,3 +60,17 @@
 .center { text-align: center; margin-top: 60px; }
 .loading-msg { color: var(--muted); padding: 40px 0; text-align: center; }
 .freshness-label { font-size: 0.75rem; color: var(--muted); }
+/* Search */
+.search-input {
+  width: 300px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 7px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+  outline: none;
+}
+.search-input::placeholder { color: var(--muted); }
+.search-input:focus { border-color: var(--accent); }

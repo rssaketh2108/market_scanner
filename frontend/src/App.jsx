@@ -74,6 +74,11 @@ export default function App() {
               {status.industry_count} industries
             </span>
           )}
+          {status.ready && status.last_updated && (
+            <span className="freshness-label">
+              Updated {new Date(status.last_updated).toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
+            </span>
+          )}
           <button className="btn-refresh" onClick={handleRefresh} title="Force refresh">
             ↺ Refresh
           </button>
